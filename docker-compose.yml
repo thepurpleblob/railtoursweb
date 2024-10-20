@@ -1,0 +1,25 @@
+services:
+    railtours:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 8082:80
+    directus:
+        image: directus/directus:11.1.0
+        ports:
+            - 8056:8055
+        volumes:
+            - ./database:/directus/database
+            - ./uploads:/directus/uploads
+            - ./extensions:/directus/extensions
+        environment:
+            SECRET: "T&|A~1)9!V8.R+:o#C:&ZB[hT0&J;F"
+            ADMIN_EMAIL: "admin@example.com"
+            ADMIN_PASSWORD: "purple"
+            DB_CLIENT: "sqlite3"
+            DB_FILENAME: "/directus/database/data.db"
+            WEBSOCKETS_ENABLED: "true"
+
+
+        
