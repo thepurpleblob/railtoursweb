@@ -20,6 +20,17 @@ services:
             DB_CLIENT: "sqlite3"
             DB_FILENAME: "/directus/database/data.db"
             WEBSOCKETS_ENABLED: "true"
+            CACHE_ENABLED: 'true'
+            CACHE_STORE: 'redis'
+            CACHE_AUTO_PURGE: "true"
+            REDIS: 'redis://cache:6379'
+            CONTENT_SECURITY_POLICY_DIRECTIVES__UPGRADE_INSECURE_REQUESTS: 'null'
+            CORS_ENABLED: "true"
+            CORS_ORIGIN: "true"
+    cache:
+        image: redis:6
+        restart: always
 
 
-        
+
+
