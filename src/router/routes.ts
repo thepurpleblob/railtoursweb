@@ -7,6 +7,13 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
   },
 
+  {
+    path: '/page/:slug',
+    component: () => import('layouts/SRPSLayout.vue'),
+    children: [{ path: '', component: () => import('pages/PageOther.vue') }],
+  },
+
+
   // Always leave this as last one,
   // but you can also remove it
   {

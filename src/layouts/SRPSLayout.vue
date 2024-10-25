@@ -1,22 +1,20 @@
 <template>
   <q-layout view="hhh lpr fff" class="bg-grey-8">
     <q-header elevated class="bg-primary text-white" height-hint="98">
-      <q-toolbar>
-        <q-toolbar-title class="q-pt-lg">
-          <img src="~assets/railtourh.png" />
+      <q-toolbar class="q-pt-md">
+        <q-toolbar-title class="text-center">
+            <img src="~assets/TransparentSmall.png" />
         </q-toolbar-title>
       </q-toolbar>
 
-      <!--
       <q-tabs align="left">
-        <q-route-tab to="/page1" label="Page One" />
-        <q-route-tab to="/page2" label="Page Two" />
-        <q-route-tab to="/page3" label="Page Three" />
+        <q-route-tab to="/" label="Home" />
+        <q-route-tab to="/tours" label="Tours" />
+        <q-route-tab to="/page/terms" label="Terms and conditions" />
       </q-tabs>
-      -->
     </q-header>
 
-    <q-page-container class="">
+    <q-page-container class="bg-white">
       <router-view />
     </q-page-container>
 
