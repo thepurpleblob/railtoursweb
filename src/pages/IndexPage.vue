@@ -10,7 +10,7 @@
         >
 
           <q-carousel-slide v-for="i in 6" :name="i" :img-src="'rt' + i +'.jpg'">
-              <InMaintenance></InMaintenance>
+              <!-- <InMaintenance></InMaintenance> -->
           </q-carousel-slide>
 
         </q-carousel>
