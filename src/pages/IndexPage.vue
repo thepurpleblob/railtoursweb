@@ -1,5 +1,5 @@
 <template>
-    <q-responsive :ratio="1">
+    <q-responsive :ratio="1" class="rt-slide">
         <q-carousel
             animated
             v-model="slide"
@@ -28,4 +28,9 @@
         name: 'IndexPage',
     });
 </script>
+
+<style lang="sass">
+.rt-slide
+    width: 100%
+</style>
 

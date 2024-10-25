@@ -5,24 +5,30 @@
         </q-banner>
 
         <div v-if="!notours && !showdesc">
-            <q-card v-for="tour in tours" rounded class="rt-card q-mb-md">
+            <div v-for="tour in tours" class="row justify-evenly">
+                <q-card v-for="tour in tours" rounded class="rt-card q-mb-md">
 
-                <q-card-section>
-                    <div class="text-h6">{{ tour.Title }}</div>
-                    <div>{{ tour.Description }}</div>
-                    <div class="q-mt-md">
-                        <q-btn color="primary" label="Find out more..." @click="findoutmore(tour)"/>
-                    </div>
-                </q-card-section>
-            </q-card>
+                    <q-card-section>
+                        <div class="text-h6">{{ tour.Title }}</div>
+                        <div>{{ tour.Description }}</div>
+                        <div class="q-mt-md">
+                            <q-btn color="primary" label="Find out more..." @click="findoutmore(tour)"/>
+                        </div>
+                    </q-card-section>
+                </q-card>
+            </div>
         </div>
 
-        <div v-if="showdesc">
-            <h4>{{ moretour.Title }}</h4>
-            <q-btn class="q-mb-md" color="primary" label="Close" @click="showdesc=false"></q-btn>
-            <div v-html="moretour.Page"></div>
+        <div v-if="showdesc" class="row justify-evenly">
+            <q-card rounded class="rt-card-full">
+                <q-card-section>
+                    <h4>{{ moretour.Title }}</h4>
+                    <q-btn class="q-mb-md" color="primary" label="Close" @click="showdesc=false"></q-btn>
+                    <div v-html="moretour.Page"></div>
 
-            <q-btn color="primary" label="Close" @click="showdesc=false"></q-btn>
+                    <q-btn color="primary" label="Close" @click="showdesc=false"></q-btn>
+                </q-card-section>
+            </q-card>
         </div>
     </q-page>
 </template>
@@ -79,3 +85,11 @@
         showdesc.value = true;
     }
 </script>
+
+<style lang="sass">
+.rt-card
+    max-width: 700px
+
+.rt-card-full
+    max-width: 700px
+</style>
