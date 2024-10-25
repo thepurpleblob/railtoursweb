@@ -1,0 +1,81 @@
+<template>
+    <q-page v-if="!loading" class="q-pa-lg">
+        <q-banner v-if="notours" rounded class="bg-orange text-white">
+            <b>There are currently no SRPS railtours available to book.</b>
+        </q-banner>
+
+        <div v-if="!notours && !showdesc">
+            <q-card v-for="tour in tours" rounded class="rt-card q-mb-md">
+
+                <q-card-section>
+                    <div class="text-h6">{{ tour.Title }}</div>
+                    <div>{{ tour.Description }}</div>
+                    <div class="q-mt-md">
+                        <q-btn color="primary" label="Find out more..." @click="findoutmore(tour)"/>
+                    </div>
+                </q-card-section>
+            </q-card>
+        </div>
+
+        <div v-if="showdesc">
+            <h4>{{ moretour.Title }}</h4>
+            <q-btn class="q-mb-md" color="primary" label="Close" @click="showdesc=false"></q-btn>
+            <div v-html="moretour.Page"></div>
+
+            <q-btn color="primary" label="Close" @click="showdesc=false"></q-btn>
+        </div>
+    </q-page>
+</template>
+
+<script setup lang="ts">
+    import { ref, onMounted } from 'vue';
+    import { useRoute } from 'vue-router';
+    import axios from 'axios';
+    import { Notify } from 'quasar';
+
+    // Tour object
+    interface Tour {
+        Title: string;
+        Description: string;
+        Page: string;
+    }
+
+    const loading = ref(true);
+    const notours = ref(true);
+    const tours = ref([] as Tour[]);
+    const showdesc = ref(false);
+    const moretour = ref({} as Tour);
+
+    //const route = useRoute();
+    //const content = ref('');
+    //const title = ref('');
+
+    onMounted(() => {
+        const endpoint = process.env.ENDPOINT;
+
+        loading.value = true;
+
+        const filter = '/Tour?filter={ "status": {"_eq": "published"}}';
+        axios.get(endpoint + filter)
+        .then(result => {
+            const mytours = result.data.data;
+            notours.value = mytours.length == 0;
+            tours.value = mytours;
+            loading.value = false;
+        })
+        .catch(error => {
+            window.console.error(error);
+            Notify.create({
+                message: 'Server error'
+            })
+        });
+    });
+
+    /**
+     * Find out more clicked
+     */
+    function findoutmore(tour: Tour) {
+        moretour.value = tour;
+        showdesc.value = true;
+    }
+</script>
