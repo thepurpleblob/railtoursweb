@@ -68,7 +68,6 @@
         const filter = '/Tour?filter={ "status": {"_eq": "published"}}';
         axios.get(endpoint + filter)
         .then(result => {
-            window.console.log(result.data.data);
             const mytours = result.data.data;
             notours.value = mytours.length == 0;
             tours.value = mytours;
