@@ -11,6 +11,8 @@
                     <q-card-section>
                         <div class="text-h6">{{ tour.Title }}</div>
                         <div>{{ tour.Description }}</div>
+                        <br />
+                        <div><b>{{ tour.Tourdate.toDateString() }}</b></div>
                         <div class="q-mt-md">
                             <q-btn color="primary" label="Find out more..." @click="findoutmore(tour)"/>
                         </div>
@@ -23,6 +25,7 @@
             <q-card rounded class="rt-card-full">
                 <q-card-section>
                     <h4>{{ moretour.Title }}</h4>
+                    <h5>{{ moretour.Tourdate.toDateString() }}</h5>
                     <q-btn class="q-mb-md" color="primary" label="Close" @click="showdesc=false"></q-btn>
                     <div v-html="moretour.Page"></div>
 
@@ -44,6 +47,7 @@
         Title: string;
         Description: string;
         Page: string;
+        Tourdate: Date;
     }
 
     const loading = ref(true);
@@ -64,10 +68,15 @@
         const filter = '/Tour?filter={ "status": {"_eq": "published"}}';
         axios.get(endpoint + filter)
         .then(result => {
+            window.console.log(result.data.data);
             const mytours = result.data.data;
             notours.value = mytours.length == 0;
             tours.value = mytours;
             loading.value = false;
+
+            tours.value.forEach(tour => {
+                tour.Tourdate = new Date(tour.Tourdate);
+            });
         })
         .catch(error => {
             window.console.error(error);
