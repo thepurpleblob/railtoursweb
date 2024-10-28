@@ -46,11 +46,6 @@
             <p class="text-weight-bold q-pt-lg">
               The Scottish Railway Preservation Society - Railtours
             </p>
-            <p>
-              Operators of Bo'ness and Kinneil Railway and Museum of Scottish
-              Raulways. A Scottish Charity, SC002375, regulated by the Scottish
-              Charity Regulator.
-            </p>
           </div>
           <div>
             <p>
