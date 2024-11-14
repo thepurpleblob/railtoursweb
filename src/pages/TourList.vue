@@ -13,8 +13,11 @@
                         <div>{{ tour.Description }}</div>
                         <br />
                         <div><b>{{ tour.Tourdate.toDateString() }}</b></div>
-                        <div class="q-mt-md">
+                        <div v-if="tour.Showpage" class="q-mt-md">
                             <q-btn color="primary" label="Find out more..." @click="findoutmore(tour)"/>
+                        </div>
+                        <div v-else>
+                            Full details coming soon.
                         </div>
                     </q-card-section>
                 </q-card>
@@ -48,6 +51,7 @@
         Description: string;
         Page: string;
         Tourdate: Date;
+        Showpage: Boolean;
     }
 
     const loading = ref(true);
@@ -75,6 +79,7 @@
 
             tours.value.forEach(tour => {
                 tour.Tourdate = new Date(tour.Tourdate);
+                tour.Showpage = tour.Page.trim().length !== 0;
             });
         })
         .catch(error => {
