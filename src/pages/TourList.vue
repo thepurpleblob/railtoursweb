@@ -6,7 +6,7 @@
 
         <div v-if="!notours && !showdesc">
             <div v-for="tour in tours" class="row justify-evenly">
-                <q-card v-for="tour in tours" rounded class="rt-card q-mb-md">
+                <q-card rounded class="rt-card q-mb-md">
 
                     <q-card-section>
                         <div class="text-h6">{{ tour.Title }}</div>
@@ -16,7 +16,7 @@
                         <div v-if="tour.Showpage" class="q-mt-md">
                             <q-btn color="primary" label="Find out more..." @click="findoutmore(tour)"/>
                         </div>
-                        <div v-else>
+                        <div v-else class="q-mt-md">
                             Full details coming soon.
                         </div>
                     </q-card-section>
@@ -73,13 +73,14 @@
         axios.get(endpoint + filter)
         .then(result => {
             const mytours = result.data.data;
+            window.console.log(mytours);
             notours.value = mytours.length == 0;
             tours.value = mytours;
             loading.value = false;
 
             tours.value.forEach(tour => {
                 tour.Tourdate = new Date(tour.Tourdate);
-                tour.Showpage = tour.Page.trim().length !== 0;
+                tour.Showpage = (tour.Page != null) && (tour.Page.trim().length !== 0);
             });
         })
         .catch(error => {
@@ -101,7 +102,7 @@
 
 <style lang="sass">
 .rt-card
-    max-width: 700px
+    width: 700px
 
 .rt-card-full
     max-width: 700px
