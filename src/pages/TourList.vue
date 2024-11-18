@@ -69,8 +69,16 @@
 
         loading.value = true;
 
-        const filter = '/Tour?filter={ "status": {"_eq": "published"}}';
-        axios.get(endpoint + filter)
+        // Select published tours
+        const filter = {
+            status: {
+                _eq: "published"
+            }
+        };
+
+        //const select = '/Tour?filter={ "status": {"_eq": "published"}}';
+        const select = '/Tour?filter=' + JSON.stringify(filter) + '&sort=Tourdate';
+        axios.get(endpoint + select)
         .then(result => {
             const mytours = result.data.data;
             window.console.log(mytours);
