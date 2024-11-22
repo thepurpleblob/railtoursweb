@@ -12,6 +12,8 @@
 
                         <h5>{{ date }}</h5>
 
+                        <q-img v-if="isimage" class="q-mb-md" :src="image" fit="fill"></q-img>
+
                         <div v-if="!ispage" v-html="description"></div>
 
                         <q-banner v-if="!ispage" class="q-mt-lg text-white bg-orange">
@@ -34,11 +36,13 @@
 
     // Tour object
     interface Tour {
+        Code: string;
         Title: string;
         Description: string;
         Page: string;
         Tourdate: Date;
         Showpage: Boolean;
+        MainImage: string;
     }
 
     const loading = ref(true);
@@ -47,13 +51,15 @@
     const description = ref('');
     const page = ref('');
     const ispage = ref(true);
+    const isimage = ref(false);
     const notours = ref(false);
-    const moretour = ref({} as Tour);
+    const image = ref('');
 
     const route = useRoute();
 
     onMounted(() => {
         const endpoint = process.env.ENDPOINT;
+        const assets = process.env.ASSETS;
 
         loading.value = true;
         const code = route.params.code as string;
@@ -78,6 +84,8 @@
                 date.value = tourdate.toDateString();
                 description.value = tour.Description;
                 page.value = tour.Page;
+                image.value = assets + '/' + tour.MainImage;
+                isimage.value = tour.MainImage != '';
             }
             loading.value = false;
 

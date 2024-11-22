@@ -64,7 +64,6 @@
         axios.get(endpoint + select)
         .then(result => {
             const mytours = result.data.data;
-            window.console.log(mytours);
             notours.value = mytours.length == 0;
             tours.value = mytours;
             loading.value = false;

@@ -204,6 +204,7 @@ module.exports = configure(function (/* ctx */) {
     build: {
       env: {
         ENDPOINT: "https://cms.srpsrailtours.co.uk/items",
+        ASSETS: "https://cms.srpsrailtours.co.uk/assets",
       }
     }
   };
