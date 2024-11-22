@@ -17,7 +17,6 @@
 
     onMounted(() => {
         const endpoint = process.env.ENDPOINT;
-        window.console.log(endpoint);
 
         const slug = route.params.slug as string;
         const filter = '/Page?filter={ "status": {"_eq": "published"}, "slug": {"_eq": "' + slug + '"}}';

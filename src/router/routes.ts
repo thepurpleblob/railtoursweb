@@ -15,7 +15,12 @@ const routes: RouteRecordRaw[] = [
       path: '/tours',
       component: () => import('layouts/SRPSLayout.vue'),
       children: [{ path: '', component: () => import('pages/TourList.vue') }],
-  },
+    },
+    {
+        path: '/tourpage/:code',
+        component: () => import('layouts/SRPSLayout.vue'),
+        children: [{ path: '', component: () => import('pages/TourPage.vue') }],
+    },
 
     // Always leave this as last one,
     // but you can also remove it

@@ -4,7 +4,7 @@
             <b>There are currently no SRPS railtours available to book.</b>
         </q-banner>
 
-        <div v-if="!notours && !showdesc">
+        <div v-if="!notours">
             <div v-for="tour in tours" class="row justify-evenly">
                 <q-card rounded class="rt-card q-mb-md">
 
@@ -23,30 +23,18 @@
                 </q-card>
             </div>
         </div>
-
-        <div v-if="showdesc" class="row justify-evenly">
-            <q-card rounded class="rt-card-full">
-                <q-card-section>
-                    <h4>{{ moretour.Title }}</h4>
-                    <h5>{{ moretour.Tourdate.toDateString() }}</h5>
-                    <q-btn class="q-mb-md" color="primary" label="Close" @click="showdesc=false"></q-btn>
-                    <div v-html="moretour.Page"></div>
-
-                    <q-btn color="primary" label="Close" @click="showdesc=false"></q-btn>
-                </q-card-section>
-            </q-card>
-        </div>
     </q-page>
 </template>
 
 <script setup lang="ts">
     import { ref, onMounted } from 'vue';
-    import { useRoute } from 'vue-router';
+    import { useRouter } from 'vue-router';
     import axios from 'axios';
     import { Notify } from 'quasar';
 
     // Tour object
     interface Tour {
+        Code: string;
         Title: string;
         Description: string;
         Page: string;
@@ -57,12 +45,7 @@
     const loading = ref(true);
     const notours = ref(true);
     const tours = ref([] as Tour[]);
-    const showdesc = ref(false);
-    const moretour = ref({} as Tour);
-
-    //const route = useRoute();
-    //const content = ref('');
-    //const title = ref('');
+    const router = useRouter();
 
     onMounted(() => {
         const endpoint = process.env.ENDPOINT;
@@ -103,8 +86,10 @@
      * Find out more clicked
      */
     function findoutmore(tour: Tour) {
-        moretour.value = tour;
-        showdesc.value = true;
+        const code = tour.Code;
+        router.push({
+            path: '/tourpage/' + code,
+        });
     }
 </script>
 
