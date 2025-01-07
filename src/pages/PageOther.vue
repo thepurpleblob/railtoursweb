@@ -1,22 +1,25 @@
 <template>
-    <q-page class="q-pa-lg">
-        <h4>{{ title }}</h4>
-        <div v-html="content"></div>
-    </q-page>
+    <main>
+        <div class="text-justify md:mx-auto md:px-8 px-1 py-3 border-b-2 mb-4 max-w-5xl">
+            <h4 class="font-bold">{{ title }}</h4>
+            <EditorContent :content="content"></EditorContent>
+        </div>
+    </main>
 </template>
 
 <script setup lang="ts">
     import { ref, onMounted } from 'vue';
     import { useRoute } from 'vue-router';
+    import EditorContent from '@/components/EditorContent.vue';
     import axios from 'axios';
-    import { Notify } from 'quasar';
+    import { toast, type ToastOptions } from 'vue3-toastify';
 
     const route = useRoute();
     const content = ref('');
     const title = ref('');
 
     onMounted(() => {
-        const endpoint = process.env.ENDPOINT;
+        const endpoint = import.meta.env.VITE_ENDPOINT;
 
         const slug = route.params.slug as string;
         const filter = '/Page?filter={ "status": {"_eq": "published"}, "slug": {"_eq": "' + slug + '"}}';
@@ -28,16 +31,12 @@
                 content.value = page.Content;
                 title.value = page.Title;
             } else {
-                Notify.create({
-                    message: 'Missing page'
-                });
+                toast('Missing page');
             }
         })
         .catch(error => {
             window.console.error(error);
-            Notify.create({
-                message: 'Server error'
-            })
+            toast('Server error');
         });
     });
 </script>

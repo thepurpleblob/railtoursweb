@@ -1,36 +1,37 @@
 <template>
-    <q-page v-if="!loading" class="q-pa-lg">
-        <q-banner v-if="notours" rounded class="bg-orange text-white">
+    <main v-if="!loading" class="q-pa-lg text-justify md:mx-auto md:px-8 px-1 py-3 border-b-2 mb-4 max-w-5xl">
+        <div v-if="notours" role="alert" class="alert alert-warning">
             <b>There are currently no SRPS railtours available to book.</b>
-        </q-banner>
+        </div>
 
         <div v-if="!notours">
             <div v-for="tour in tours" class="row justify-evenly">
-                <q-card rounded class="rt-card q-mb-md">
-
-                    <q-card-section>
-                        <div class="text-h6">{{ tour.Title }}</div>
-                        <div>{{ tour.Description }}</div>
-                        <br />
-                        <div><b>{{ tour.Tourdate.toDateString() }}</b></div>
+                <div class="card shadow-xl">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ tour.Title }}</h4>
+                        <article class="prose max-w-none">
+                            {{ tour.Description }}
+                        </article>
+                        <div><font-awesome-icon class="mr-2" icon="calendar-days" size="1x"/> <b>{{ tour.Tourdate.toDateString() }}</b></div>
                         <div v-if="tour.Showpage" class="q-mt-md">
-                            <q-btn color="primary" label="Find out more..." @click="findoutmore(tour)"/>
+                            <button class="btn btn-accent" @click="findoutmore(tour)">Find out more...</button>
                         </div>
                         <div v-else class="q-mt-md">
                             Full details coming soon.
                         </div>
-                    </q-card-section>
-                </q-card>
+                    </div>
+                </div>
             </div>
         </div>
-    </q-page>
+    </main>
 </template>
 
 <script setup lang="ts">
     import { ref, onMounted } from 'vue';
     import { useRouter } from 'vue-router';
     import axios from 'axios';
-    import { Notify } from 'quasar';
+    import { toast, type ToastOptions } from 'vue3-toastify';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
     // Tour object
     interface Tour {
@@ -48,7 +49,7 @@
     const router = useRouter();
 
     onMounted(() => {
-        const endpoint = process.env.ENDPOINT;
+        const endpoint = import.meta.env.VITE_ENDPOINT;
 
         loading.value = true;
 
@@ -75,9 +76,7 @@
         })
         .catch(error => {
             window.console.error(error);
-            Notify.create({
-                message: 'Server error'
-            })
+            toast('Server error');
         });
     });
 
@@ -91,11 +90,3 @@
         });
     }
 </script>
-
-<style lang="sass">
-.rt-card
-    width: 700px
-
-.rt-card-full
-    max-width: 700px
-</style>

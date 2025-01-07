@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
     import { ref } from 'vue';
-    import InMaintenance from '../components/InMaintenance.vue';
 
     const slide = ref(1);
     const autoplay = ref(true);
@@ -29,8 +28,5 @@
     });
 </script>
 
-<style lang="sass">
-.rt-slide
-    width: 100%
-</style>
+
 
