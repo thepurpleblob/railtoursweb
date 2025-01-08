@@ -23,7 +23,7 @@
                         tabindex="0"
                         class="menu menu-sm dropdown-content bg-base-100 text-black rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li v-for="item in menu">
-                            <RouterLink activeClass="active" :to="item.path">{{ item.name }}</RouterLink>
+                            <RouterLink activeClass="active" class="text-lg" :to="item.path">{{ item.name }}</RouterLink>
                         </li>
                     </ul>
                 </div>
@@ -31,7 +31,7 @@
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu menu-horizontal px-1">
                     <li v-for="item in menu">
-                        <RouterLink activeClass="active" :to="item.path">{{ item.name }}</RouterLink>
+                        <RouterLink activeClass="active" class="text-2xl" :to="item.path">{{ item.name }}</RouterLink>
                     </li>
                 </ul>
             </div>

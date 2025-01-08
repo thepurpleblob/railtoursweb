@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="text-justify md:mx-auto md:px-8 px-1 py-3 border-b-2 mb-4 max-w-5xl">
-            <h4 class="font-bold">{{ title }}</h4>
+            <h1 class="font-bold text-4xl">{{ title }}</h1>
             <EditorContent :content="content"></EditorContent>
         </div>
     </main>

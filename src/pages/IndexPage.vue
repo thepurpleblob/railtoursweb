@@ -1,20 +1,7 @@
 <template>
-    <q-responsive :ratio="1" class="rt-slide">
-        <q-carousel
-            animated
-            v-model="slide"
-            arrows
-            infinite
-            height="800px"
-            :autoplay="autoplay"
-        >
+    <div class="grid-cols-2 gap-4">
 
-          <q-carousel-slide v-for="i in 6" :name="i" :img-src="'rt' + i +'.jpg'">
-              <!-- <InMaintenance></InMaintenance> -->
-          </q-carousel-slide>
-
-        </q-carousel>
-    </q-responsive>
+    </div>
 </template>
 
 <script setup lang="ts">
